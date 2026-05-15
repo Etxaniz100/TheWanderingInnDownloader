@@ -6,6 +6,7 @@ import time
 import random
 
 template_directory = "./Output/template"
+chapter_list_directory = "chapters"
 
 def sustituteNames(file_name, author_name, book_name):
     file_text = ""
@@ -175,45 +176,50 @@ if __name__ == '__main__':
     sustituteNames(template_directory + '/OEBPS/content.opf', book_author, book_title)
     sustituteNames(template_directory + '/OEBPS/toc.ncx', book_author, book_title)
 
-    chapter_number = 1
-    with open("./chapters") as file:
-        for link in file:
-            print("-------------------- Chapter ", chapter_number, "--------------------")
-            if(chapter_number != 1):
-                print("\tWait start")
-                # The https://wanderinginn.com/robots.txt ask to wait 10 seconds between requests
-                time.sleep(random.uniform(10, 11))
-                print("\tWait end")
-            response = getChapter(link.replace("\n", ""))
-            chapter_name = response[0]
-            chapter_content = response[1]
-            if(chapter_name == "" or chapter_content == ""):
-                print("\tError reading chapter: ", link.replace("\n", ""))
+    if os.path.exists(chapter_list_directory):
 
-            chapter_file_name = generateChapterFile(chapter_name, chapter_content)
+        chapter_number = 1
+        with open(chapter_list_directory) as file:
+            for link in file:
+                print("-------------------- Chapter ", chapter_number, "--------------------")
+                if(chapter_number != 1):
+                    print("\tWait start")
+                    # The https://wanderinginn.com/robots.txt ask to wait 10 seconds between requests
+                    time.sleep(random.uniform(10, 11))
+                    print("\tWait end")
+                response = getChapter(link.replace("\n", ""))
+                chapter_name = response[0]
+                chapter_content = response[1]
+                if(chapter_name == "" or chapter_content == ""):
+                    print("\tError reading chapter: ", link.replace("\n", ""))
 
-            addChapterToBook(chapter_file_name, chapter_number, str(chapter_name))
+                chapter_file_name = generateChapterFile(chapter_name, chapter_content)
 
-            chapter_number += 1
+                addChapterToBook(chapter_file_name, chapter_number, str(chapter_name))
 
-    print("-------------------- Download ended --------------------")
+                chapter_number += 1
 
-    if(cover_file != ""):
-        print("Adding cover image")
-        shutil.copy(cover_file, template_directory + "/OEBPS/Images/cover.jpg")
-        print("\t...done")
+        print("-------------------- Download ended --------------------")
 
-    print("Generating epub file...")
-    shutil.make_archive(template_directory, 'zip', template_directory)
+        if(cover_file != ""):
+            print("Adding cover image")
+            shutil.copy(cover_file, template_directory + "/OEBPS/Images/cover.jpg")
+            print("\t...done")
 
-    if(os.path.isfile(final_file)):
-        os.remove(final_file)
-    os.rename(template_directory+".zip", final_file)
+        print("Generating epub file...")
+        shutil.make_archive(template_directory, 'zip', template_directory)
 
-    shutil.rmtree(template_directory)
-    print("\t..done")
+        if(os.path.isfile(final_file)):
+            os.remove(final_file)
+        os.rename(template_directory+".zip", final_file)
 
-    print("Book genearion completed : " + final_file)
+        shutil.rmtree(template_directory)
+        print("\t..done")
+
+        print("Book genearion completed : " + final_file)
+
+    else:
+        print("Chapter list file not found")
 
 
 
