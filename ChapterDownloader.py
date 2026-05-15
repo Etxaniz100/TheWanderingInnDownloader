@@ -196,6 +196,8 @@ if __name__ == '__main__':
 
             chapter_number += 1
 
+    print("-------------------- Download ended --------------------")
+
     if(cover_file != ""):
         print("Adding cover image")
         shutil.copy(cover_file, template_directory + "/OEBPS/Images/cover.jpg")
