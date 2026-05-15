@@ -5,8 +5,13 @@ import shutil
 import time
 import random
 
-template_directory = "./Output/template"
+# BOOK DATA
+book_title = "The Wandering Inn Volume 9 - Pirateaba"
+book_author = "PirateAba"
+cover_file = "BookCover.jpg"
+
 chapter_list_directory = "chapters"
+template_directory = "./Output/template"
 
 def sustituteNames(file_name, author_name, book_name):
     file_text = ""
@@ -160,10 +165,6 @@ if __name__ == '__main__':
     # Cambiar el nombre a titulo.epub
 
     print("Starting book generation")
-
-    book_title = "The Wandering Inn Volume 9 - Pirateaba"
-    book_author = "PirateAba"
-    cover_file = "BookCover.jpg"
 
     final_file = "Output/" + book_title + ".epub"
 

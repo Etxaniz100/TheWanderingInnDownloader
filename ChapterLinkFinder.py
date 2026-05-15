@@ -3,6 +3,9 @@ import requests
 import random
 
 TABLE_OF_CONTENTS_LINK = "https://wanderinginn.com/table-of-contents/"
+starting_chapter = "9.00"
+ending_chapter = "Volume 9 – Epilogue"
+
 
 def getChapter(start_chapter, end_chapter):
 
@@ -85,9 +88,6 @@ def getChapter(start_chapter, end_chapter):
 if __name__ == '__main__':
 
     print("Starting link find")
-
-    starting_chapter = "9.00"
-    ending_chapter = "Volume 9 – Epilogue"
 
     chapter_list = getChapter(starting_chapter, ending_chapter)
 
