@@ -4,7 +4,7 @@
 
 [The Wandering Inn](https://wanderinginn.com/) is a fantasy web novel which can be read online for free on the official website. The problem is I prefer to read in my e-book instead of reading on my phone or computer. 
 
-This is where this downloader comes to play. 
+This is where this downloader comes to play. It takes the web chapters and passes them to an EPUB file. 
 
 This python script is divided in two parts, a chapter finder and a chapter downloader. Given a two chapter name, the chapter finder finds the links to these two and all the chapters in between and puts them on a list. 
 The chapter downloader takes the list, downloads each chapter and creates an EPUB file with them.  
